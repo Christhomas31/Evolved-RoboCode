@@ -10,6 +10,7 @@ class Individual implements Comparable {
 	double myEnergyFP
 	double distanceFP
 	double theirEnergyFP
+	def banana
 	Random random = new Random()
 	def fitness
 	
