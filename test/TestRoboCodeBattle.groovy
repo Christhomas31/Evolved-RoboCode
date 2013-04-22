@@ -16,13 +16,16 @@ class TestRoboCodeBattle extends Specification {
 	 * angle_diff : the coefficient for the different in angles between us and the point and then and the point
 	 * distance : the coefficient for the distance between the point and the enemy
 	 */
-	def id
+	/* def id
 	def enemy_energy
 	def my_energy
 	def angle_diff
 	def distance
 	def robotBuilder
 	def battleRunner
+	def myEnergyFP
+	def distanceFP
+	def theirEnergyFP
 
 	def setup() {
 		Random random = new Random()
@@ -31,7 +34,35 @@ class TestRoboCodeBattle extends Specification {
 		my_energy = random.nextFloat() * 100
 		angle_diff = random.nextFloat() * 100
 		distance = random.nextFloat() * 100
-        def values = ["id" : id, "enemy_energy" : enemy_energy, "my_energy" : my_energy, "angle_diff" : angle_diff, "distance" : distance]
+		myEnergyFP = random.nextInt(33)+1
+		distanceFP = random.nextInt(2000)+500
+		theirEnergyFP = random.nextInt(33)+1
+        def values = ["id" : id, "enemy_energy" : enemy_energy, "my_energy" : my_energy, "angle_diff" : angle_diff, "distance" : distance,
+			"myEnergyFP": myEnergyFP, "distanceFP": distanceFP, "theirEnergyFP": theirEnergyFP] */
+	def id
+	def values
+	def testbot
+	def battleRunner
+	def robotBuilder
+	def enemy_energy
+	def my_energy
+	def angle_diff
+	def distance
+	def myEnergyFP
+	def distanceFP
+	def theirEnergyFP
+	
+	
+	def setup(){
+		Individual indiv = new Individual()
+		indiv.setValue()
+		testbot = indiv
+		id = testbot.id
+		enemy_energy = testbot.enemy_energy
+		my_energy = testbot.my_energy
+		angle_diff = testbot.angle_diff
+		distance = testbot.distance
+		def values = testbot.values
 
 		robotBuilder = new RobotBuilder("templates/HawkOnFireOS.template")
 		robotBuilder.buildJarFile(values)
@@ -53,7 +84,7 @@ class TestRoboCodeBattle extends Specification {
 		
         when:
 		def score = battleRunner.runBattle(id)
-
+		
         then:
 		score >= 0
 	}
