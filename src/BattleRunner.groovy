@@ -34,8 +34,8 @@ class BattleRunner {
         def command = "${userHome}/robocode/robocode.sh -battle ${battleFile.absolutePath} -nodisplay"
         def proc = command.execute(null, new File(robotDirectory))
         proc.waitFor()
+		assert proc.exitValue() == 0
 		assert proc.err.text.equals("")
-        assert proc.exitValue() == 0
         def lines = proc.in.text.split("\n")
         def result = false
         lines.each { line ->

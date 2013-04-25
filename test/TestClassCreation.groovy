@@ -11,22 +11,35 @@ class TestClassCreation extends Specification {
      * angle_diff : the coefficient for the different in angles between us and the point and then and the point
      * distance : the coefficient for the distance between the point and the enemy
      */
-    def id
-    def enemy_energy
-    def my_energy
-    def angle_diff
-    def distance
-    def robotBuilder
 
-    def setup() {
-        Random random = new Random()
-        id = random.nextInt(1000000)
-        enemy_energy = random.nextFloat() * 100
-        my_energy = random.nextFloat() * 100
-        angle_diff = random.nextFloat() * 100
-        distance = random.nextFloat() * 100
-        robotBuilder = new RobotBuilder("templates/HawkOnFireOS.template")
-    }
+	def id
+	def values
+	def testbot
+	def robotBuilder
+	def enemy_energy
+	def my_energy
+	def angle_diff
+	def distance
+	def myEnergyFP
+	def distanceFP
+	def theirEnergyFP
+	
+	
+	def setup(){
+		Individual indiv = new Individual()
+		indiv.setValue()
+		println indiv.id
+		testbot = indiv
+		id = testbot.id
+		enemy_energy = testbot.enemy_energy
+		my_energy = testbot.my_energy
+		angle_diff = testbot.angle_diff
+		distance = testbot.distance
+
+		
+		robotBuilder = new RobotBuilder("templates/HawkOnFireOS.template")
+		 
+	}
 
     /*
      * Here we want to make sure that given some data, we can
@@ -35,8 +48,9 @@ class TestClassCreation extends Specification {
      */
     def "Confirm that we can create a Java source file for an individual"() {
         given:
-        def values = ["id" : id, "enemy_energy" : enemy_energy, "my_energy" : my_energy, "angle_diff" : angle_diff, "distance" : distance]
 
+		def values = testbot.values
+		
         when:
         robotBuilder.buildJavaFile(values)
 
@@ -54,10 +68,12 @@ class TestClassCreation extends Specification {
      */
     def "Confirm that we can create a Java class file for an individual"() {
         given:
-        def values = ["id" : id, "enemy_energy" : enemy_energy, "my_energy" : my_energy, "angle_diff" : angle_diff, "distance" : distance]
+        /* def values = ["id" : id, "enemy_energy" : enemy_energy, "my_energy" : my_energy, "angle_diff" : angle_diff, "distance" : distance,
+			"myEnergyFP": myEnergyFP, "distanceFP": distanceFP, "theirEnergyFP": theirEnergyFP] */
+
 
         when:
-        robotBuilder.buildClassFile(values)
+        robotBuilder.buildClassFile(testbot.values)
 
         then:
         confirmJavaFileExists()
@@ -75,10 +91,12 @@ class TestClassCreation extends Specification {
      */
     def "Confirm that we can create a jar file for an individual"() {
         given:
-        def values = ["id" : id, "enemy_energy" : enemy_energy, "my_energy" : my_energy, "angle_diff" : angle_diff, "distance" : distance]
+       /* def values = ["id" : id, "enemy_energy" : enemy_energy, "my_energy" : my_energy, "angle_diff" : angle_diff, "distance" : distance,
+			"myEnergyFP": myEnergyFP, "distanceFP": distanceFP, "theirEnergyFP": theirEnergyFP] */
+
 
         when:
-        robotBuilder.buildJarFile(values)
+        robotBuilder.buildJarFile(testbot.values)
 
         then:
         confirmJavaFileExists()
