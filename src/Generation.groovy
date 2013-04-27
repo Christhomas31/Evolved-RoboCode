@@ -10,68 +10,61 @@ class Generation {
 	 * 		- Generate an ending population of combined individuals
 	 *  */
 	
-	def populationSize
-	def startingPop = new Population().popCreator(populationSize)
-	def bestIndividual
-	def endingPop = [populationSize]
+	def bestIndividual = new Individual()
+	def community = [] /* Array that all individuals will be placed into */
 	
-	/* Run a generation */
+	def popCreator(popSize) { /* popSize is the size of the population, should be divisible by 4. WHOAMAN. */
+		for(int i in 0..< popSize) {
+			def individual = new Individual()
+			individual.setValue()
+			individual.calcFitness()
+			community.putAt(i, individual)
+		}
+		community.sort()
+		bestIndividual.fitness = 0
+	}
+	/* Runs a generation */
 	def runGeneration() {
-		startingPop.determinedFitness()
-		startingPop.popSort()
-		startingPop.mutation()
+		mutation()
+		determineFitness()
+		community.sort()
+		//deleteJar()
+		if (bestIndividual.fitness < community[0].fitness){
+			bestIndividual = community[0]
+		}
 	}
 	
 	/* Individuals without a fitness score have that calculated here */
-	def determinedFitness() {
-		for (i in startingPop) {
+	def determineFitness() {
+		for (i in community) {
 			if (i.fitness == null) {
 				i.calcFitness()
 			} 
 		}
 	}
 	
-	/* Sorts individuals in the population based upon fitness */
-	def popSort() { 
-		startingPop.sort()
-	}
 	
-	/* Delete jar files of all individuals */
+	/* Delete jar files of all individuals 
 	def deleteJar() {
 		def id
-		for (i in 0..< startingPop.size()) { 
+		for (i in 0..< community.size()) { 
 			id = i.id
 			new File("evolved_robots/evolved/Individual_${id}.java").delete()
 		}
-	}
-	
-	/* Top percentage of startingPop */
-	def topIndividuals
-	
-	/* Mutates the  */
+	} */
+	/* Mutates the our most promising robots*/
 	def mutation() {
 		/* Generates population we want to mutate */
-		def fourthSize = startingPop.size()/4
+		int fourthSize = community.size()/4
 		for (i in 0..< fourthSize) {
 			for (j in 1..3){
-				startingPop.putAt(fourthSize*j+i, startingPop(i).clone())
+				community[fourthSize*j+i] = community[i].clone()
 			}
 		}
-		
-		/* Mutates */
+		for (i in fourthSize..<community.size()){
+			community[i].mutateIndividual()
+		}
 		
 	}
-	
-	
-	
-//	/* Combines the top 50% of fit individuals */
-//	def reproduction() { 
-//		/* Take topIndividuals of startingPop and combine
-//		 * What do we combine from each individual?
-//		 * Which individuals do we pair? */
-//		
-//		/* Place children in endingPop */
-//
-//	}
 	
 }

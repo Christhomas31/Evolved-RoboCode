@@ -53,6 +53,7 @@ class TestRoboCodeBattle extends Specification {
 	def theirEnergyFP
 	
 	
+	
 	def setup(){
 		Individual indiv = new Individual()
 		indiv.setValue()
@@ -63,6 +64,7 @@ class TestRoboCodeBattle extends Specification {
 		angle_diff = testbot.angle_diff
 		distance = testbot.distance
 		def values = testbot.values
+		individual =indiv
 
 		robotBuilder = new RobotBuilder("templates/HawkOnFireOS.template")
 		robotBuilder.buildJarFile(values)
@@ -88,6 +90,7 @@ class TestRoboCodeBattle extends Specification {
         then:
 		score >= 0
 	}
+	
 	
 	def confirmBattleFile() {
 		File file = new File("evolved_robots/evolve.battle")
