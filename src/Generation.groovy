@@ -9,7 +9,7 @@ class Generation {
 	 * 		- Combine fit individuals (optional for now)
 	 * 		- Generate an ending population of combined individuals
 	 *  */
-	
+
 	def bestIndividual = new Individual()
 	def community = [] /* Array that all individuals will be placed into */
 	

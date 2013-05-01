@@ -5,8 +5,8 @@ class EvoChamber {
 	def static main(args){
 		//main evolution occurs here
 		def population = new Generation()
-		population.popCreator(40)
-		for (i in 0..<500){
+		population.popCreator(12)
+		for (i in 0..<100){
 			println "generation " + i
 			population.runGeneration()
 			println "best " + population.bestIndividual.fitness
