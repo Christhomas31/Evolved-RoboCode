@@ -64,7 +64,6 @@ class TestRoboCodeBattle extends Specification {
 		angle_diff = testbot.angle_diff
 		distance = testbot.distance
 		def values = testbot.values
-		individual =indiv
 
 		robotBuilder = new RobotBuilder("templates/HawkOnFireOS.template")
 		robotBuilder.buildJarFile(values)

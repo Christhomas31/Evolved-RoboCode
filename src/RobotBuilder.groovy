@@ -13,7 +13,7 @@ class RobotBuilder {
     }
     
     def buildJarFile(values) {
-        buildClassFile(values)
+		buildClassFile(values)
         buildPropertiesFile(values)
         def id = values['id']
         def fileNamePrefix = "Individual_${id}"

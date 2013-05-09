@@ -38,21 +38,36 @@ class BattleRunner {
 		assert proc.err.text.equals("")
         def lines = proc.in.text.split("\n")
         def result = false
+		def resultTwo =0
+		def resultThree =0
 		
         lines.each { line ->
             def pattern = ~/evolved\.Individual_${id}\s+(\d+)/
+            def patternTwo = ~/sample\.Walls\s+(\d+)/
+			def patternThree = ~/sample\.RamFire\s+(\d+)/
             def m = (line =~ pattern)
+			def mm = (line =~ patternTwo)
+			def mmm = (line =~ patternThree)
             if (m) {
                 result = Integer.parseInt(m[0][1])
             }
+			if (mm) {
+				resultTwo = Integer.parseInt(mm[0][1])
+			}
+			if (mmm) {
+				resultThree = Integer.parseInt(mmm[0][1])
+			}
 
         }
+		
         if (result) {
-            return result
+            return result/(result+resultTwo+resultThree)
         } else {
             throw new RuntimeException("Didn't find score for evolved robot")
         }
     }
+
+	
     
     def linkJarFile(id) {
         def robotDir = new File("${userHome}/robocode/robots/")
